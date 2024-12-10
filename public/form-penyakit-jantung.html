@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Diagnosa Penyakit Jantung</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+
+    h1 {
+      color: #007bff;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #e6ffe6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      color: #333;
+    }
+
+    .result h2 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      form, .result {
+        padding: 15px;
+      }
+
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Diagnosa Penyakit Jantung</h1>
+  <form id="diagnosaForm">
+    <label for="symptoms">Gejala yang Anda alami (pilih salah satu atau tambahkan manual):</label>
+    <select id="symptomsDropdown" onchange="addToSymptoms()">
+        <option value="nyeri dada">Nyeri dada</option>
+        <option value="sesak napas">Sesak napas</option>
+        <option value="jantung berdebar cepat">Jantung berdebar cepat</option>
+        <option value="kelelahan yang tidak biasa">Kelelahan yang tidak biasa</option>
+        <option value="bengkak di kaki atau pergelangan kaki">Bengkak di kaki atau pergelangan kaki</option>
+        <option value="pingsan atau hampir pingsan">Pingsan atau hampir pingsan</option>
+        <option value="kaki dingin">Kaki dingin</option>
+        <option value="nyeri rahang atau punggung">Nyeri rahang atau punggung</option>
+    </select>
+    <textarea id="symptoms" name="symptoms" rows="4" placeholder="Masukkan gejala yang Anda alami"></textarea>
+    <label for="duration">Sudah berapa lama gejala ini berlangsung?</label>
+    <input type="text" id="duration" name="duration" placeholder="Misalnya: 2 minggu">
+    <button type="button" onclick="processDiagnosis()">Kirim</button>
+  </form>
+  <div id="result" class="result" style="display: none;"></div>
+
+  <script>
+    const diagnosisDatabase = [
+      { question: "nyeri dada", answer: "Nyeri dada dapat menjadi tanda angina atau serangan jantung. Segera konsultasikan dengan dokter." },
+      { question: "sesak napas", answer: "Sesak napas sering terkait dengan gagal jantung atau penyakit paru-paru. Periksakan kondisi ini segera." },
+      { question: "jantung berdebar cepat", answer: "Jantung berdebar cepat bisa menjadi tanda aritmia. Sebaiknya periksa elektrokardiogram (EKG)." },
+      { question: "kelelahan yang tidak biasa", answer: "Kelelahan bisa menunjukkan gangguan aliran darah akibat masalah jantung." },
+      { question: "bengkak di kaki atau pergelangan kaki", answer: "Pembengkakan dapat mengindikasikan gagal jantung atau retensi cairan." },
+      { question: "pingsan atau hampir pingsan", answer: "Kondisi ini mungkin disebabkan oleh gangguan aliran darah ke otak. Periksakan tekanan darah dan kondisi jantung." },
+      { question: "kaki dingin", answer: "Kaki dingin bisa menjadi tanda penyakit arteri perifer. Sebaiknya lakukan pemeriksaan." },
+      { question: "nyeri rahang atau punggung", answer: "Nyeri ini kadang-kadang terkait dengan serangan jantung, terutama pada wanita. Periksakan segera." }
+    ];
+
+    function addToSymptoms() {
+      const dropdown = document.getElementById("symptomsDropdown");
+      const textarea = document.getElementById("symptoms");
+      const selectedSymptom = dropdown.value;
+
+      if (selectedSymptom) {
+        textarea.value += (textarea.value ? ", " : "") + selectedSymptom;
+        dropdown.value = ""; // Reset dropdown setelah menambahkan
+      }
+    }
+
+    function processDiagnosis() {
+      const symptoms = document.getElementById("symptoms").value.toLowerCase();
+      const result = document.getElementById("result");
+
+      const matchedDiagnosis = diagnosisDatabase.find(entry => symptoms.includes(entry.question));
+
+      if (matchedDiagnosis) {
+        result.innerHTML = `
+          <h2>Hasil Diagnosa</h2>
+          <p>${matchedDiagnosis.answer}</p>
+        `;
+      } else {
+        result.innerHTML = `
+          <h2>Hasil Diagnosa</h2>
+          <p>Maaf, kami tidak menemukan diagnosa yang sesuai. Silakan konsultasikan dengan dokter.</p>
+        `;
+      }
+      result.style.display = "block";
+    }
+  </script>
+</body>
+</html>

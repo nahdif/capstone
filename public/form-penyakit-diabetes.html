@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Diagnosa Diabetes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+
+    h1 {
+      color: #007bff;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #e6ffe6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      color: #333;
+    }
+
+    .result h2 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      form, .result {
+        padding: 15px;
+      }
+
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Diagnosa Diabetes</h1>
+  <form id="diagnosaForm">
+    <label for="symptoms">Gejala yang Anda alami (pilih salah satu atau tambahkan manual):</label>
+    <select id="symptomsDropdown" onchange="addToSymptoms()">
+        <option value="sering haus">Sering haus</option>
+        <option value="sering buang air kecil">Sering buang air kecil</option>
+        <option value="penurunan berat badan">Penurunan berat badan</option>
+        <option value="kelelahan">Kelelahan</option>
+        <option value="penglihatan kabur">Penglihatan kabur</option>
+        <option value="luka sulit sembuh">Luka sulit sembuh</option>
+        <option value="infeksi kulit berulang">Infeksi kulit berulang</option>
+    </select>
+    <textarea id="symptoms" name="symptoms" rows="4" placeholder="Masukkan gejala yang Anda alami"></textarea>
+    <label for="duration">Sudah berapa lama gejala ini berlangsung?</label>
+    <input type="text" id="duration" name="duration" placeholder="Misalnya: 3 bulan">
+    <button type="button" onclick="processDiagnosis()">Kirim</button>
+  </form>
+  <div id="result" class="result" style="display: none;"></div>
+
+  <script>
+    const diagnosisDatabase = [
+      { question: "sering haus", answer: "Sering merasa haus adalah gejala umum diabetes. Periksakan kadar gula darah Anda." },
+      { question: "sering buang air kecil", answer: "Sering buang air kecil terutama pada malam hari bisa menjadi tanda diabetes. Segera konsultasikan." },
+      { question: "penurunan berat badan", answer: "Penurunan berat badan yang tidak dijelaskan sering terjadi pada diabetes tipe 1." },
+      { question: "kelelahan", answer: "Kelelahan bisa disebabkan oleh kadar gula darah yang tidak stabil pada penderita diabetes." },
+      { question: "penglihatan kabur", answer: "Penglihatan kabur dapat terjadi akibat kadar gula darah yang tinggi." },
+      { question: "luka sulit sembuh", answer: "Luka yang sulit sembuh adalah gejala umum dari diabetes yang tidak terkontrol." },
+      { question: "infeksi kulit berulang", answer: "Infeksi kulit yang berulang sering terjadi pada penderita diabetes." }
+    ];
+
+    function addToSymptoms() {
+      const dropdown = document.getElementById("symptomsDropdown");
+      const textarea = document.getElementById("symptoms");
+      const selectedSymptom = dropdown.value;
+
+      if (selectedSymptom) {
+        textarea.value += (textarea.value ? ", " : "") + selectedSymptom;
+        dropdown.value = ""; // Reset dropdown setelah menambahkan
+      }
+    }
+
+    function processDiagnosis() {
+      const symptoms = document.getElementById("symptoms").value.toLowerCase();
+      const result = document.getElementById("result");
+
+      const matchedDiagnosis = diagnosisDatabase.find(entry => symptoms.includes(entry.question));
+
+      if (matchedDiagnosis) {
+        result.innerHTML = `
+          <h2>Hasil Diagnosa</h2>
+          <p>${matchedDiagnosis.answer}</p>
+        `;
+      } else {
+        result.innerHTML = `
+          <h2>Hasil Diagnosa</h2>
+          <p>Maaf, kami tidak menemukan diagnosa yang sesuai. Silakan konsultasikan dengan dokter.</p>
+        `;
+      }
+      result.style.display = "block";
+    }
+  </script>
+</body>
+</html>

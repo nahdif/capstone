@@ -1,0 +1,164 @@
+/* Atur ulang margin dan padding default */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+/* Form Container */
+.container {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Form */
+form {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #007bff;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"], input[type="email"], input[type="number"], textarea, input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Input Hover and Focus */
+input:hover, textarea:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+input:focus, textarea:focus {
+  border-color: #0056b3;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.3);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Buttons */
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #003d80;
+  transform: scale(1);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #007bff;
+  color: white;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Responsif untuk perangkat kecil */
+@media (max-width: 768px) {
+  form {
+    width: 90%;
+    padding: 20px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  form {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+}
+
+.username-info {
+  display: flex;
+  flex-direction: column;
+  color: #333;
+}
+
+.username-info p {
+  margin: 0;
+}
